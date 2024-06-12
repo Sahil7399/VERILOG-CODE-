@@ -1,0 +1,35 @@
+
+interface sync_fifo #(parameter WIDTH = 8,PARAMETER  DEPTH = 8) (input clk);
+  
+  logic wr_en_i,rd_en_i, rst_n,empty_o, full_o;
+  logic [WIDTH - 1 : 0] data_i, data_o;
+  
+  modport dut (input  wr_en_i,rd_en_i, rst_n,data_i, clk,
+              output data_o, empty_o, full_o);
+  
+  modport tb (input data_o, empty_o, full_o, 
+              output  wr_en_i,rd_en_i, rst_n,data_i, clk,);
+  
+  task push(input logic [WIDTH - 1 : 0] wr_data);
+        
+    @(posedge clk );
+    
+    if(!full) 
+      begin  data_i = wr_data;data_i = wr_data; wr_en_i= 1;
+      #1 $display("Data = %h Pushed into the fifo",data_in);
+    end
+    else
+      $display("ERROR : Fifo full data cannot be inserted, Data = %0h",wr_data);
+  endtask
+  task pop(output logic [WIDTH - 1 : 0] rd_data); 
+    @(posedge clk)
+    if(!empty) 
+      begin  rd_en_i = 1; rd_data = data_o;
+      #1 $display("Data out  = %0h",data_o);
+    end
+    else begin
+      $display("ERROR : Fifo Empty");
+      rd_data = data_o; 
+    end
+  endtask
+endinterface
