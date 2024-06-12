@@ -1,0 +1,48 @@
+module dflipflop(input d,
+              input rstn,  
+              input clk,  
+              output reg q);  
+  
+    always @ (posedge clk or negedge rstn)  
+       if (!rstn)  
+          q <= 0;  
+       else  
+          q <= d;  
+endmodule   
+
+Testbench
+module dflipfloptb;
+
+	// Inputs
+	reg d;
+	reg rstn;
+	reg clk;
+
+	// Outputs
+	wire q;
+
+	// Instantiate the Unit Under Test (UUT)
+	dflipflop uut (
+		.d(d), 
+		.rstn(rstn), 
+		.clk(clk), 
+		.q(q)
+	);
+
+	initial 
+	begin
+		// Initialize Inputs
+		d = 0;
+		rstn = 0;
+		clk = 0;
+
+		// Wait 100 ns for global reset to finish
+		  #15 d <= 1;  
+        #10 rstn <= 1;  
+        for (int i = 0; i < 5; i=i+1) begin  
+            delay = $random;  
+            #(delay) d <= i; 
+
+	end
+      
+endmodule
