@@ -1,0 +1,34 @@
+// Code your design here
+// Clock Generator Module
+module clock_generator(output reg clk);
+  
+  initial begin
+    clk = 0;
+  end
+  
+  always begin
+    #100 clk = ~clk;  // Toggle the clock every 100ns to create a 200ns period (5MHz frequency)
+  end
+
+endmodule
+
+// Testbench Module
+module tb_clock_generator;
+  wire clk;
+  
+  // Instantiate the Clock Generator
+  clock_generator cg(.clk(clk));
+  
+  initial begin
+    // Dump waveforms to VCD file
+    $dumpfile("dump.vcd");
+    $dumpvars(0, tb_clock_generator);
+
+    // Monitor the clock signal
+    $monitor("Time = %0t, Clock = %b", $time, clk);
+    
+    // Run the simulation for a specified time
+    #1000 $stop;  // Stop the simulation after 1000ns
+  end
+  
+endmodule
