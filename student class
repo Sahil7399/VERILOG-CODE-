@@ -1,0 +1,95 @@
+// student class
+
+class student;
+  string name;
+  string roll_no;
+  int year;
+  address addr;
+  stream str;
+  
+  function new(string name, string roll_no, int year, address addr, stream str);
+    
+    this.name = name;
+    this.roll_no = roll_no;
+    this.year = year;
+    this.address = addr;
+    this.stream = str;
+    
+  endfunction
+  
+  
+  //getter and setter functions of student class
+  
+  function string getname();
+    
+    return this.name;
+    
+  endfunction
+  
+  function void setname(string name);
+    
+    this.name = name;
+    
+  endfunction
+  
+  
+  function string getrollno();
+    
+    return this.roll_no;
+    
+  endfunction
+ 
+  function void setrollno(string roll_no);
+    
+    this.roll_no = roll_no;
+    
+  endfunction
+  
+  function int getyear();
+    
+    return this.year;
+    
+  endfunction
+  
+  function void setyear(int year);
+    
+    this.year = year;
+    
+  endfunction
+  
+  function address getaddress();
+    
+    return this.addr;
+    
+  endfunction
+  
+  function void setaddress(address addr);
+    
+    this.addr = addr;
+    
+  endfunction
+  
+  
+  function stream getstream();
+    
+    return this.s;
+    
+  endfunction
+  
+  function void setstream(stream s);
+    
+    this.s = s;
+    
+  endfunction
+  
+  //print student function
+  
+  function void print();
+    
+    $display("Name = %s",this.name);
+    $display("Roll Number = %s",this.roll_no);
+    $display("year = %0d",this.year);
+    $display("Stream = %s",this.s.name());
+    add.print();   
+  endfunction 
+endclass
